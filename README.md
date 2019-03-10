@@ -14,30 +14,28 @@ npm install @babel/core babel-loader @babel/preset-env @babel/preset-react --sav
 npm install --save react react-dom prop-types redux react-redux
 
 create webpack.config.js :
-'use strict';
-var path = require("path");
+const path = require("path");
 module.exports = {
-    mode: 'development',
-    entry: {
-        "index": "./index.js"
-    },
-    output: {
-        path: path.join(__dirname, "build"),
-        filename: "[name].bundle.js"
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                use: "babel-loader"
-            }
-        ]
-    },
-    devtool: "source-map",
-    watch: true,
-    watchOptions: {
-        aggregateTimeout: 300
-    }
+  entry: "./src/index.js",
+  output: {
+    path: path.join(__dirname, "/dist"),
+    filename: "index_bundle.js"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      }
+    ]
+  }
 };
 
 create .babelrc
